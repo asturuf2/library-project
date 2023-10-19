@@ -23,9 +23,11 @@ myLibrary.push(jade)
 
 const cardContainer = document.querySelector(".card-grid")
 
-const createBookCard = () => {
-    //create card elements 
-    const cardGrid = document.createElement("div")
+//loop that goes through myLibrary and creates div for each
+
+const createBookCardLoop = () => {
+    myLibrary.forEach((e) => {
+        const cardGrid = document.createElement("div")
     const cardTitle = document.createElement("div")
     const cardAuthor = document.createElement("div")
     const cardPages = document.createElement("div")
@@ -40,7 +42,6 @@ const createBookCard = () => {
     buttonGrid.classList.add("button-style-container")
     buttonStatus.classList.add("button-style")
     buttonRemove.classList.add("button-style")
-    //add form info to card element
     
     //append card elements 
     cardContainer.appendChild(cardGrid)
@@ -51,18 +52,16 @@ const createBookCard = () => {
     buttonGrid.appendChild(buttonStatus)
     buttonGrid.appendChild(buttonRemove)
 
-    //?????
-    myLibrary.forEach((e) => {
-        cardTitle.innerText = e.title
-        cardAuthor.innerText = e.author
-        cardPages.innerText = e.pages + " Pages"
-        buttonStatus.innerText = "status"
-        buttonRemove.innerText = "remove"
-        })
+    //adds the content of the selected book from myLibrary to the display div
+    cardTitle.innerText = e.title
+    cardAuthor.innerText = e.author
+    cardPages.innerText = e.pages + " Pages"
+    buttonStatus.innerText = "status"
+    buttonRemove.innerText = "remove"
+    })
 }
 
-//remove this below
-createBookCard()
+createBookCardLoop()
 
 //checklist
 
