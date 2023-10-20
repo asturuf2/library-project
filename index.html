@@ -14,6 +14,25 @@
             <div class="button">Add new book</div>
         </div>
         <div class="card-grid"></div>
+        <dialog class="modal" id="modal">
+            <form class = "new-book-form">
+                    <div>
+                        <label for="form-title">Book title:</label>
+                        <input type="text" id = "form-title" required>
+                    </div>
+                    <div>
+                        <label for="form-author">Author name:</label>
+                        <input type="text" id = "form-author" required>
+                    </div>
+                    <div>
+                        <label for="form-pages">Number of pages:</label>
+                        <input type="number" id = "form-pages" required>
+                    </div>
+                    <div>
+                        <button type = "submit" class = "form-button">Add book</button>
+                    </div>
+            </form>
+        </dialog>
     </div>
 </body>
 </html>
