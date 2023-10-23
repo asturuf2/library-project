@@ -6,35 +6,39 @@ function Book(title, author, pages){
     this.pages = pages
 }
 
-const hobbit = new Book(
-    "The Hobbit",
-    "J. R. R. Tolkein",
-    "304"
-)
+const cardContainer = document.querySelector(".card-grid")  
+const openModal = document.querySelector(".button")
+const modal = document.querySelector("#modal")
 
-const jade = new Book(
-    "Jade City",
-    "Fonda Lee",
-    "632"
-)
+openModal.addEventListener("click", () => {
+    modal.showModal();
+})
 
-myLibrary.push(hobbit)
-myLibrary.push(jade)
+//retrieve data from form and add to myLibrary
 
-const cardContainer = document.querySelector(".card-grid")
+const form = document.querySelector(".new-book-form")
 
-//loop that goes through myLibrary and creates div for each
-
-const createBookCardLoop = () => {
-    //before the loop runs, remove all cards from dom
-    
-    myLibrary.forEach((e) => {
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let index = myLibrary.length
+    const title = document.querySelector("#form-title").value
+    const author = document.querySelector("#form-author").value
+    const pages = document.querySelector("#form-pages").value
+        const book = new Book(
+            title,
+            author,
+            pages 
+        )
+    myLibrary.push(book)
+    form.reset()
+    modal.close()
+    //create book
         const cardGrid = document.createElement("div")
         const cardTitle = document.createElement("div")
         const cardAuthor = document.createElement("div")
         const cardPages = document.createElement("div")
-        const buttonGrid = document.createElement("div")
         const buttonStatus = document.createElement("button")
+        const buttonGrid = document.createElement("div")
         const buttonRemove = document.createElement("button")
     //add classes to the elements for styling 
         cardGrid.classList.add("card-style-container")
@@ -50,43 +54,31 @@ const createBookCardLoop = () => {
         cardGrid.appendChild(cardAuthor)
         cardGrid.appendChild(cardPages)
         cardGrid.appendChild(buttonGrid)
-        buttonGrid.appendChild(buttonStatus)
         buttonGrid.appendChild(buttonRemove)
-
-    //adds the content of the selected book from myLibrary to the display div
-        cardTitle.innerText = e.title
-        cardAuthor.innerText = e.author
-        cardPages.innerText = e.pages + " Pages"
-        buttonStatus.innerText = "status"
+        buttonGrid.appendChild(buttonStatus)
+    //adds new book info to div
+        cardTitle.innerText = title
+        cardAuthor.innerText = author
+        cardPages.innerText = pages + " Pages"
+        buttonStatus.innerText = "Not read"
+        buttonStatus.style.backgroundColor = "red"
         buttonRemove.innerText = "remove"
-    })
-}
+    //addevent listener that removes card from dom to the buttonRemove
+        buttonRemove.addEventListener("click", () => {
+            cardGrid.remove();
+        })
+    //addeventlistener allows user to change read status 
+        buttonStatus.addEventListener("click", () => {
+            if (buttonStatus.innerText == "Not read"){
+                buttonStatus.innerText = "Read"
+                buttonStatus.style.backgroundColor = "green"
+            } else {
+                buttonStatus.innerText = "Not read"
+                buttonStatus.style.backgroundColor = "red"
+            }
+                
+        })
 
-createBookCardLoop()
-
-const openModal = document.querySelector(".button")
-const modal = document.querySelector("#modal")
-
-openModal.addEventListener("click", () => {
-    modal.showModal();
 })
 
 
-//retrieve data from form and add to myLibrary
-
-const form = document.querySelector(".new-book-form")
-
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const title = document.querySelector("#form-title").value
-    const author = document.querySelector("#form-author").value
-    const pages = document.querySelector("#form-pages").value
-        const book = new Book(
-            title,
-            author,
-            pages 
-        )
-    myLibrary.push(book)
-    form.reset()
-    modal.close()
-})
